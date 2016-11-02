@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="UIControl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHh-De-sFl">
+                                <rect key="frame" x="-4" y="352" width="328" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="hwC-U4-GEV"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="ycG-Bf-zN9"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="7ao-ix-rd1"/>
+                                </connections>
+                            </pickerView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PasswordDomain" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="heX-kR-UqW">
+                                <rect key="frame" x="16" y="93" width="288" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="naN-FU-X9T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="_onDomainEndEditing:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="R6U-93-JgV"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PasswordKey" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WjH-s0-zJY">
+                                <rect key="frame" x="16" y="146" width="288" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PasswordResult" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ioa-XC-V3e">
+                                <rect key="frame" x="16" y="199" width="288" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dR-Rf-IPJ">
+                                <rect key="frame" x="16" y="252" width="140" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="R08-A7-agT"/>
+                                </constraints>
+                                <state key="normal" title="生成"/>
+                                <connections>
+                                    <action selector="_onGenerateTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cir-Z1-xH2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49n-67-O7i">
+                                <rect key="frame" x="164" y="252" width="140" height="40"/>
+                                <state key="normal" title="生成并复制"/>
+                                <connections>
+                                    <action selector="_onGenerateCopyTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T71-Ib-AlN"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="独立密码生成" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4k-he-B0c">
+                                <rect key="frame" x="16" y="50" width="288" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="bpY-Xg-kNf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Domains:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nvl-fD-OGa">
+                                <rect key="frame" x="16" y="323" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="fxh-PX-wCP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="cHh-De-sFl" secondAttribute="trailing" constant="-20" id="0cn-QB-XCj"/>
+                            <constraint firstItem="heX-kR-UqW" firstAttribute="top" secondItem="L4k-he-B0c" secondAttribute="bottom" constant="8" id="2ux-vl-Gp9"/>
+                            <constraint firstItem="9dR-Rf-IPJ" firstAttribute="width" secondItem="49n-67-O7i" secondAttribute="width" id="3qO-nJ-Rdz"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="heX-kR-UqW" secondAttribute="leading" id="5gx-VK-R6P"/>
+                            <constraint firstItem="Nvl-fD-OGa" firstAttribute="leading" secondItem="ioa-XC-V3e" secondAttribute="leading" id="7LV-ad-jGI"/>
+                            <constraint firstItem="WjH-s0-zJY" firstAttribute="top" secondItem="heX-kR-UqW" secondAttribute="bottom" constant="8" id="9BC-PF-pso"/>
+                            <constraint firstItem="49n-67-O7i" firstAttribute="height" secondItem="9dR-Rf-IPJ" secondAttribute="height" id="CXX-kA-Ntg"/>
+                            <constraint firstItem="cHh-De-sFl" firstAttribute="top" secondItem="Nvl-fD-OGa" secondAttribute="bottom" constant="8" id="DsX-ll-Gne"/>
+                            <constraint firstItem="ioa-XC-V3e" firstAttribute="top" secondItem="WjH-s0-zJY" secondAttribute="bottom" constant="8" id="Dur-m9-7JA"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cHh-De-sFl" secondAttribute="bottom" id="H5c-UQ-wBi"/>
+                            <constraint firstItem="WjH-s0-zJY" firstAttribute="leading" secondItem="heX-kR-UqW" secondAttribute="leading" id="IN6-Wb-kwD"/>
+                            <constraint firstItem="ioa-XC-V3e" firstAttribute="height" secondItem="WjH-s0-zJY" secondAttribute="height" id="Iwi-ph-pUC"/>
+                            <constraint firstItem="cHh-De-sFl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="J5e-ps-WKt"/>
+                            <constraint firstItem="49n-67-O7i" firstAttribute="leading" secondItem="9dR-Rf-IPJ" secondAttribute="trailing" constant="8" id="MGA-jy-F0I"/>
+                            <constraint firstItem="Nvl-fD-OGa" firstAttribute="trailing" secondItem="ioa-XC-V3e" secondAttribute="trailing" id="OaS-uv-fta"/>
+                            <constraint firstItem="L4k-he-B0c" firstAttribute="leading" secondItem="heX-kR-UqW" secondAttribute="leading" id="REg-gQ-pdG"/>
+                            <constraint firstItem="ioa-XC-V3e" firstAttribute="trailing" secondItem="WjH-s0-zJY" secondAttribute="trailing" id="TMY-uJ-V46"/>
+                            <constraint firstItem="WjH-s0-zJY" firstAttribute="trailing" secondItem="heX-kR-UqW" secondAttribute="trailing" id="aIg-XZ-8M9"/>
+                            <constraint firstItem="9dR-Rf-IPJ" firstAttribute="top" secondItem="ioa-XC-V3e" secondAttribute="bottom" constant="8" id="fi1-FY-DHl"/>
+                            <constraint firstItem="heX-kR-UqW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="73" id="fpo-lN-qhG"/>
+                            <constraint firstItem="ioa-XC-V3e" firstAttribute="leading" secondItem="WjH-s0-zJY" secondAttribute="leading" id="glR-P3-6ow"/>
+                            <constraint firstItem="WjH-s0-zJY" firstAttribute="height" secondItem="heX-kR-UqW" secondAttribute="height" id="o7X-Ju-pe2"/>
+                            <constraint firstItem="49n-67-O7i" firstAttribute="top" secondItem="9dR-Rf-IPJ" secondAttribute="top" id="sge-1o-Qfw"/>
+                            <constraint firstItem="L4k-he-B0c" firstAttribute="trailing" secondItem="heX-kR-UqW" secondAttribute="trailing" id="uwD-pR-WYT"/>
+                            <constraint firstItem="49n-67-O7i" firstAttribute="trailing" secondItem="ioa-XC-V3e" secondAttribute="trailing" id="x37-f4-m1g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="heX-kR-UqW" secondAttribute="trailing" id="xh4-5l-G2d"/>
+                            <constraint firstItem="9dR-Rf-IPJ" firstAttribute="leading" secondItem="ioa-XC-V3e" secondAttribute="leading" id="zzI-WV-IFK"/>
+                        </constraints>
+                        <connections>
+                            <action selector="_onEndEditing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="svf-8N-ZRr"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="domainTextField" destination="heX-kR-UqW" id="e2l-Cl-TQS"/>
+                        <outlet property="keyTextField" destination="WjH-s0-zJY" id="zMB-iF-Tcr"/>
+                        <outlet property="pickerView" destination="cHh-De-sFl" id="BQR-nT-RN6"/>
+                        <outlet property="resultTextField" destination="ioa-XC-V3e" id="f5D-3d-gPq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="420" y="623"/>
+        </scene>
+    </scenes>
+</document>

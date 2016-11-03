@@ -21,14 +21,14 @@
 + (NSArray *)persistentProperties {
     static NSArray* properties = nil;
     if (!properties) {
-        properties = @[ @"domain", @"key", @"lastUsed" ];
+        properties = @[ @"recordId", @"domain", @"account", @"key", @"lastUsed" ];
     }
     
     return properties;
 }
 
 + (NSString *)primaryKey {
-    return @"domain";
+    return @"recordId";
 }
 
 @end

@@ -120,4 +120,24 @@
     return result;
 }
 
+- (NSDictionary *)yoyo_dictionaryGroupByKey:(id (^)(id element))keyBlock {
+    NSMutableDictionary* result = [[NSMutableDictionary alloc] init];
+    for (id element in self) {
+        id key = keyBlock(element);
+        if (!key) {
+            continue;
+        }
+        
+        NSMutableArray* objects = [result objectForKey:key];
+        if (!objects) {
+            objects = [[NSMutableArray alloc] init];
+            [result setObject:objects forKey:key];
+        }
+        
+        [objects addObject:element];
+    }
+    
+    return result;
+}
+
 @end

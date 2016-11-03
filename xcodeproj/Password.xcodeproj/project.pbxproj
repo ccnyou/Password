@@ -29,6 +29,7 @@
 		A6A60FC31DCA404400B0A5AE /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A60FB61DCA404400B0A5AE /* UIView+Toast.m */; };
 		A6A60FC51DCA405A00B0A5AE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A6A60FC41DCA405A00B0A5AE /* libsqlite3.tbd */; };
 		A6A60FC81DCA408200B0A5AE /* PasswordRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A60FC71DCA408200B0A5AE /* PasswordRecord.m */; };
+		A6A60FD11DCADC9900B0A5AE /* NSDictionary+Yoyo.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A60FD01DCADC9900B0A5AE /* NSDictionary+Yoyo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,8 @@
 		A6A60FC41DCA405A00B0A5AE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		A6A60FC61DCA408200B0A5AE /* PasswordRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordRecord.h; sourceTree = "<group>"; };
 		A6A60FC71DCA408200B0A5AE /* PasswordRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordRecord.m; sourceTree = "<group>"; };
+		A6A60FCF1DCADC9900B0A5AE /* NSDictionary+Yoyo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Yoyo.h"; sourceTree = "<group>"; };
+		A6A60FD01DCADC9900B0A5AE /* NSDictionary+Yoyo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Yoyo.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,7 @@
 		A6A60F271DCA2F8F00B0A5AE /* Password */ = {
 			isa = PBXGroup;
 			children = (
+				A6A60FCA1DCACFD500B0A5AE /* Model */,
 				A6A60F4E1DCA3FBE00B0A5AE /* Image */,
 				A6A60F2B1DCA2F8F00B0A5AE /* AppDelegate.h */,
 				A6A60F2C1DCA2F8F00B0A5AE /* AppDelegate.m */,
@@ -120,8 +124,6 @@
 				A6A60F361DCA2F8F00B0A5AE /* LaunchScreen.storyboard */,
 				A6A60F391DCA2F8F00B0A5AE /* Info.plist */,
 				A6A60F281DCA2F8F00B0A5AE /* Supporting Files */,
-				A6A60FC61DCA408200B0A5AE /* PasswordRecord.h */,
-				A6A60FC71DCA408200B0A5AE /* PasswordRecord.m */,
 			);
 			name = Password;
 			path = ../src/Password;
@@ -146,6 +148,7 @@
 		A6A60F931DCA404400B0A5AE /* import */ = {
 			isa = PBXGroup;
 			children = (
+				A6A60FCE1DCADC9900B0A5AE /* NSDictionary+Yoyo */,
 				A6A60F941DCA404400B0A5AE /* fmdb */,
 				A6A60FA01DCA404400B0A5AE /* GYDataCenter */,
 				A6A60FB11DCA404400B0A5AE /* NSArray+Yoyo */,
@@ -236,6 +239,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A6A60FCA1DCACFD500B0A5AE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A6A60FC61DCA408200B0A5AE /* PasswordRecord.h */,
+				A6A60FC71DCA408200B0A5AE /* PasswordRecord.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A6A60FCE1DCADC9900B0A5AE /* NSDictionary+Yoyo */ = {
+			isa = PBXGroup;
+			children = (
+				A6A60FCF1DCADC9900B0A5AE /* NSDictionary+Yoyo.h */,
+				A6A60FD01DCADC9900B0A5AE /* NSDictionary+Yoyo.m */,
+			);
+			path = "NSDictionary+Yoyo";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -311,6 +332,7 @@
 				A6A60FBC1DCA404400B0A5AE /* FMDatabaseQueue+Async.m in Sources */,
 				A6A60FBD1DCA404400B0A5AE /* GYDataContext.m in Sources */,
 				A6A60FBE1DCA404400B0A5AE /* GYDBRunner.m in Sources */,
+				A6A60FD11DCADC9900B0A5AE /* NSDictionary+Yoyo.m in Sources */,
 				A6A60F301DCA2F8F00B0A5AE /* ViewController.m in Sources */,
 				A6A60FB91DCA404400B0A5AE /* FMDatabasePool.m in Sources */,
 				A6A60FC21DCA404400B0A5AE /* NSArray+Yoyo.m in Sources */,

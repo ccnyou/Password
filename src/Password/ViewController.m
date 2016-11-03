@@ -10,13 +10,17 @@
 #import "NSArray+Yoyo.h"
 #import "UIView+Toast.h"
 #import "PasswordRecord.h"
+#import "NSDictionary+Yoyo.h"
 
 @interface ViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *domainTextField;
+@property (weak, nonatomic) IBOutlet UITextField *accountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *keyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *resultTextField;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (nonatomic, strong) NSArray* historyRecords;
+@property (nonatomic, strong) NSDictionary* groupedRecords;
+@property (nonatomic, strong) NSArray* domains;
 @end
 
 @implementation ViewController
@@ -24,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self _loadHistoryRecords];
+    [self _reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,11 +38,31 @@
 
 #pragma mark - Private
 
+- (void)_reloadData {
+    [self _loadHistoryRecords];
+    [self _fillTextFields];
+}
+
 - (void)_loadHistoryRecords {
     self.historyRecords = [PasswordRecord objectsWhere:@"order by lastUsed desc" arguments:nil];
-    PasswordRecord* record = [self.historyRecords firstObject];
+    self.groupedRecords = [self.historyRecords yoyo_dictionaryGroupByKey:^id(PasswordRecord* record) {
+        return record.domain;
+    }];
+    
+    self.domains = [self.historyRecords yoyo_copyElements:^id(PasswordRecord* record) {
+        return record.domain;
+    }];
+    NSMutableOrderedSet* set = [[NSMutableOrderedSet alloc] initWithArray:self.domains];
+    self.domains = [set array];
+}
+
+- (void)_fillTextFields {
+    NSString* domain = [self.domains firstObject];
+    NSArray* records = [self.groupedRecords yoyo_arrayForKey:domain];
+    PasswordRecord* record = [records firstObject];
     if (record) {
         self.domainTextField.text = record.domain;
+        self.accountTextField.text = record.account;
         self.keyTextField.text = record.key;
     }
 }
@@ -74,7 +98,7 @@
         key = [key substringToIndex:kMaxKeyLength - 1];
     }
     
-    NSString* password = [NSString stringWithFormat:@"%@_%@", domain, key];
+    NSString* password = [NSString stringWithFormat:@"%@.%@", domain, key];
     self.resultTextField.text = password;
 }
 
@@ -85,8 +109,23 @@
 }
 
 - (void)_saveRecord {
-    PasswordRecord* record = [[PasswordRecord alloc] init];
-    record.domain = self.domainTextField.text;
+    PasswordRecord* record = nil;
+    NSString* domain = self.domainTextField.text;
+    NSString* account = self.accountTextField.text;
+    NSArray* records = [self.groupedRecords yoyo_arrayForKey:domain];
+    for (PasswordRecord* indexRecord in records) {
+        if ([indexRecord.account isEqualToString:account]) {
+            record = indexRecord;
+            break;
+        }
+    }
+    
+    if (!record) {
+        record = [[PasswordRecord alloc] init];
+        record.domain = domain;
+        record.account = account;
+    }
+    
     record.key = self.keyTextField.text;
     record.lastUsed = [NSDate date];
     [record save];
@@ -112,7 +151,7 @@
 - (IBAction)_onGenerateTouched:(id)sender {
     [self _generatePassword];
     [self _saveRecord];
-    [self _loadHistoryRecords];
+    [self _reloadData];
     [self.pickerView reloadAllComponents];
 }
 
@@ -120,7 +159,7 @@
     [self _generatePassword];
     [self _copyPassword];
     [self _saveRecord];
-    [self _loadHistoryRecords];
+    [self _reloadData];
     [self.pickerView reloadAllComponents];
     [self.view makeToast:@"复制成功"];
 }
@@ -128,11 +167,20 @@
 #pragma mark - Picker View
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
+    return 2; // domain + account
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    NSInteger count = self.historyRecords.count;
+    NSInteger count = 0;
+    if (component == 0) {
+        count = self.groupedRecords.count;
+    } else {
+        NSInteger index = [pickerView selectedRowInComponent:0];
+        NSString* domain = [self.domains yoyo_stringAtIndex:index];
+        NSArray* records = [self.groupedRecords yoyo_arrayForKey:domain];
+        count = records.count;
+    }
+    
     if (count == 0) {
         count = 1;
     }
@@ -141,18 +189,41 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    PasswordRecord* record = [self.historyRecords yoyo_objectAtIndex:row];
-    if (record.domain) {
+    PasswordRecord* record = nil;
+    if (component == 0) {
+        NSString* domain = [self.domains yoyo_stringAtIndex:row];
+        NSArray* records = [self.groupedRecords yoyo_arrayForKey:domain];
+        record = [records firstObject];
+        [pickerView reloadComponent:1];
+    } else {
+        NSInteger index = [pickerView selectedRowInComponent:0];
+        NSString* domain = [self.domains yoyo_stringAtIndex:index];
+        NSArray* records = [self.groupedRecords yoyo_arrayForKey:domain];
+        record = [records yoyo_objectAtIndex:row];
+    }
+    
+    if (record.account.length > 0) {
         self.domainTextField.text = record.domain;
+        self.accountTextField.text = record.account;
         self.keyTextField.text = record.key;
     }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    PasswordRecord* record = [self.historyRecords yoyo_objectAtIndex:row];
-    NSString* title = @"无记录";
-    if (record.domain.length > 0) {
-        title = record.domain;
+    NSString* title = nil;
+    if (component == 0) {
+        NSString* domain = [self.domains yoyo_stringAtIndex:row];
+        title = domain;
+    } else {
+        NSInteger index = [pickerView selectedRowInComponent:0];
+        NSString* domain = [self.domains yoyo_stringAtIndex:index];
+        NSArray* records = [self.groupedRecords yoyo_arrayForKey:domain];
+        PasswordRecord* record = [records yoyo_objectAtIndex:row];
+        title = record.account;
+    }
+    
+    if (title.length <= 0) {
+        title = @"--";
     }
     
     return title;

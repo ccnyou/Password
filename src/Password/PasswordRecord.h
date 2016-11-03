@@ -10,7 +10,9 @@
 #import "GYDataCenter.h"
 
 @interface PasswordRecord : GYModelObject
+@property (nonatomic, assign) NSInteger recordId;
 @property (nonatomic, strong) NSString* domain;
+@property (nonatomic, strong) NSString* account;
 @property (nonatomic, strong) NSString* key;
 @property (nonatomic, strong) NSDate* lastUsed;
 @end

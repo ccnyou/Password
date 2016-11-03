@@ -28,4 +28,6 @@
 // 用 ifBlock 查找第一个满足条件的元素
 - (id)yoyo_elementIf:(BOOL (^)(id element))ifBlock;
 
+- (NSDictionary *)yoyo_dictionaryGroupByKey:(id (^)(id element))keyBlock;
+
 @end

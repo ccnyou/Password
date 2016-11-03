@@ -110,7 +110,7 @@
     key = [[upperString componentsSeparatedByCharactersInSet:removeSet] componentsJoinedByString:@""];
     if (key.length > kMaxKeyLength) {
         // max key length
-        key = [key substringToIndex:kMaxKeyLength - 1];
+        key = [key substringToIndex:kMaxKeyLength];
     }
     
     NSString* password = [NSString stringWithFormat:@"%@.%@", domain, key];
@@ -248,6 +248,7 @@
         self.domainTextField.text = record.domain;
         self.accountTextField.text = record.account;
         self.keyTextField.text = record.key;
+        self.resultTextField.text = @"";
     }
 }
 

@@ -39,18 +39,33 @@
 #pragma mark - Private
 
 - (void)_reloadData {
-    [self _loadHistoryRecords];
+    [self _reloadHistoryRecords];
     [self _fillTextFields];
+    [self.pickerView reloadAllComponents];
 }
 
-- (void)_loadHistoryRecords {
+- (void)_reloadHistoryRecords {
     self.historyRecords = [PasswordRecord objectsWhere:@"order by lastUsed desc" arguments:nil];
     self.groupedRecords = [self.historyRecords yoyo_dictionaryGroupByKey:^id(PasswordRecord* record) {
         return record.domain;
     }];
     
+    NSString* search = nil; // disable search feature
     self.domains = [self.historyRecords yoyo_copyElements:^id(PasswordRecord* record) {
-        return record.domain;
+        NSString* result = record.domain;
+        if (search.length > 0) {
+            if ([record.domain containsString:search]) {
+                return result;
+            }
+            
+            if ([record.account containsString:search]) {
+                return result;
+            }
+            
+            return nil;
+        }
+        
+        return result;
     }];
     NSMutableOrderedSet* set = [[NSMutableOrderedSet alloc] initWithArray:self.domains];
     self.domains = [set array];
@@ -109,6 +124,19 @@
 }
 
 - (void)_saveRecord {
+    PasswordRecord* record = [self _selectedReocrd];
+    if (!record) {
+        record = [[PasswordRecord alloc] init];
+        record.domain = self.domainTextField.text;
+        record.account = self.accountTextField.text;
+    }
+    
+    record.key = self.keyTextField.text;
+    record.lastUsed = [NSDate date];
+    [record save];
+}
+
+- (PasswordRecord *)_selectedReocrd {
     PasswordRecord* record = nil;
     NSString* domain = self.domainTextField.text;
     NSString* account = self.accountTextField.text;
@@ -120,15 +148,7 @@
         }
     }
     
-    if (!record) {
-        record = [[PasswordRecord alloc] init];
-        record.domain = domain;
-        record.account = account;
-    }
-    
-    record.key = self.keyTextField.text;
-    record.lastUsed = [NSDate date];
-    [record save];
+    return record;
 }
 
 #pragma mark - Event
@@ -148,11 +168,18 @@
     self.resultTextField.text = @"";    // 清空上次结果
 }
 
+- (IBAction)_onDomainChanged:(id)sender {
+    [self _reloadHistoryRecords];
+    [self.pickerView reloadAllComponents];
+}
+
 - (IBAction)_onGenerateTouched:(id)sender {
     [self _generatePassword];
     [self _saveRecord];
     [self _reloadData];
-    [self.pickerView reloadAllComponents];
+    
+    [self.pickerView selectRow:0 inComponent:0 animated:YES];
+    [self.pickerView selectRow:0 inComponent:1 animated:YES];
 }
 
 - (IBAction)_onGenerateCopyTouched:(id)sender {
@@ -160,8 +187,23 @@
     [self _copyPassword];
     [self _saveRecord];
     [self _reloadData];
-    [self.pickerView reloadAllComponents];
+    
+    [self.pickerView selectRow:0 inComponent:0 animated:YES];
+    [self.pickerView selectRow:0 inComponent:1 animated:YES];
+    
     [self.view makeToast:@"复制成功"];
+}
+
+- (IBAction)_onDeleteRecordTouched:(id)sender {
+    PasswordRecord* record = [self _selectedReocrd];
+    if (!record) {
+        return;
+    }
+    
+    [record deleteObject];
+    [self _reloadData];
+    
+    [self.view makeToast:@"删除成功"];
 }
 
 #pragma mark - Picker View
@@ -173,7 +215,7 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     NSInteger count = 0;
     if (component == 0) {
-        count = self.groupedRecords.count;
+        count = self.domains.count;
     } else {
         NSInteger index = [pickerView selectedRowInComponent:0];
         NSString* domain = [self.domains yoyo_stringAtIndex:index];

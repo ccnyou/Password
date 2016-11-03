@@ -19,10 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHh-De-sFl">
-                                <rect key="frame" x="-4" y="352" width="328" height="216"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="hwC-U4-GEV"/>
-                                </constraints>
+                                <rect key="frame" x="12" y="352" width="296" height="216"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="ycG-Bf-zN9"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="7ao-ix-rd1"/>
@@ -36,6 +33,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
+                                    <action selector="_onDomainChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="Mp9-e5-99r"/>
                                     <action selector="_onDomainEndEditing:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="R6U-93-JgV"/>
                                 </connections>
                             </textField>
@@ -50,7 +48,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dR-Rf-IPJ">
-                                <rect key="frame" x="16" y="273" width="140" height="40"/>
+                                <rect key="frame" x="16" y="273" width="96" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="R08-A7-agT"/>
                                 </constraints>
@@ -60,7 +58,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49n-67-O7i">
-                                <rect key="frame" x="164" y="273" width="140" height="40"/>
+                                <rect key="frame" x="112" y="273" width="96" height="40"/>
                                 <state key="normal" title="生成并复制"/>
                                 <connections>
                                     <action selector="_onGenerateCopyTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T71-Ib-AlN"/>
@@ -75,52 +73,53 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史记录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nvl-fD-OGa">
-                                <rect key="frame" x="16" y="323" width="288" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="fxh-PX-wCP"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lLw-Dt-aRw">
                                 <rect key="frame" x="16" y="116" width="288" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2f-se-UY8">
+                                <rect key="frame" x="208" y="273" width="96" height="40"/>
+                                <state key="normal" title="删除记录">
+                                    <color key="titleColor" red="0.87843137250000003" green="0.054901960780000002" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="_onDeleteRecordTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8aR-Lp-QLR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="cHh-De-sFl" secondAttribute="trailing" constant="-20" id="0cn-QB-XCj"/>
                             <constraint firstItem="WjH-s0-zJY" firstAttribute="top" secondItem="lLw-Dt-aRw" secondAttribute="bottom" constant="6" id="2Tj-m8-Ld3"/>
                             <constraint firstItem="L4k-he-B0c" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="2sa-Yh-LWb"/>
                             <constraint firstItem="heX-kR-UqW" firstAttribute="top" secondItem="L4k-he-B0c" secondAttribute="bottom" constant="8" id="2ux-vl-Gp9"/>
                             <constraint firstItem="9dR-Rf-IPJ" firstAttribute="width" secondItem="49n-67-O7i" secondAttribute="width" id="3qO-nJ-Rdz"/>
+                            <constraint firstItem="m2f-se-UY8" firstAttribute="trailing" secondItem="ioa-XC-V3e" secondAttribute="trailing" id="4Vw-DA-SjZ"/>
                             <constraint firstAttribute="leadingMargin" secondItem="heX-kR-UqW" secondAttribute="leading" id="5gx-VK-R6P"/>
-                            <constraint firstItem="Nvl-fD-OGa" firstAttribute="leading" secondItem="ioa-XC-V3e" secondAttribute="leading" id="7LV-ad-jGI"/>
                             <constraint firstItem="lLw-Dt-aRw" firstAttribute="leading" secondItem="heX-kR-UqW" secondAttribute="leading" id="COu-rC-SSU"/>
                             <constraint firstItem="49n-67-O7i" firstAttribute="height" secondItem="9dR-Rf-IPJ" secondAttribute="height" id="CXX-kA-Ntg"/>
-                            <constraint firstItem="cHh-De-sFl" firstAttribute="top" secondItem="Nvl-fD-OGa" secondAttribute="bottom" constant="8" id="DsX-ll-Gne"/>
                             <constraint firstItem="ioa-XC-V3e" firstAttribute="top" secondItem="WjH-s0-zJY" secondAttribute="bottom" constant="8" id="Dur-m9-7JA"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cHh-De-sFl" secondAttribute="bottom" id="H5c-UQ-wBi"/>
                             <constraint firstItem="WjH-s0-zJY" firstAttribute="leading" secondItem="heX-kR-UqW" secondAttribute="leading" id="IN6-Wb-kwD"/>
+                            <constraint firstItem="m2f-se-UY8" firstAttribute="leading" secondItem="49n-67-O7i" secondAttribute="trailing" id="IUn-hj-ZAp"/>
                             <constraint firstItem="ioa-XC-V3e" firstAttribute="height" secondItem="WjH-s0-zJY" secondAttribute="height" id="Iwi-ph-pUC"/>
-                            <constraint firstItem="cHh-De-sFl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="J5e-ps-WKt"/>
-                            <constraint firstItem="49n-67-O7i" firstAttribute="leading" secondItem="9dR-Rf-IPJ" secondAttribute="trailing" constant="8" id="MGA-jy-F0I"/>
+                            <constraint firstItem="49n-67-O7i" firstAttribute="leading" secondItem="9dR-Rf-IPJ" secondAttribute="trailing" id="MGA-jy-F0I"/>
                             <constraint firstItem="lLw-Dt-aRw" firstAttribute="trailing" secondItem="heX-kR-UqW" secondAttribute="trailing" id="NEY-JO-BWB"/>
-                            <constraint firstItem="Nvl-fD-OGa" firstAttribute="trailing" secondItem="ioa-XC-V3e" secondAttribute="trailing" id="OaS-uv-fta"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cHh-De-sFl" secondAttribute="trailing" constant="-4" id="PN0-WI-WkI"/>
                             <constraint firstItem="L4k-he-B0c" firstAttribute="leading" secondItem="heX-kR-UqW" secondAttribute="leading" id="REg-gQ-pdG"/>
                             <constraint firstItem="ioa-XC-V3e" firstAttribute="trailing" secondItem="WjH-s0-zJY" secondAttribute="trailing" id="TMY-uJ-V46"/>
+                            <constraint firstItem="m2f-se-UY8" firstAttribute="height" secondItem="49n-67-O7i" secondAttribute="height" id="Zfh-Qz-XL8"/>
                             <constraint firstItem="WjH-s0-zJY" firstAttribute="trailing" secondItem="heX-kR-UqW" secondAttribute="trailing" id="aIg-XZ-8M9"/>
                             <constraint firstItem="9dR-Rf-IPJ" firstAttribute="top" secondItem="ioa-XC-V3e" secondAttribute="bottom" constant="8" id="fi1-FY-DHl"/>
                             <constraint firstItem="ioa-XC-V3e" firstAttribute="leading" secondItem="WjH-s0-zJY" secondAttribute="leading" id="glR-P3-6ow"/>
                             <constraint firstItem="lLw-Dt-aRw" firstAttribute="height" secondItem="heX-kR-UqW" secondAttribute="height" id="itP-lI-N1S"/>
+                            <constraint firstItem="m2f-se-UY8" firstAttribute="top" secondItem="49n-67-O7i" secondAttribute="top" id="jVo-Lh-GPV"/>
+                            <constraint firstItem="m2f-se-UY8" firstAttribute="width" secondItem="49n-67-O7i" secondAttribute="width" id="mPL-Bu-3zN"/>
                             <constraint firstItem="WjH-s0-zJY" firstAttribute="height" secondItem="heX-kR-UqW" secondAttribute="height" id="o7X-Ju-pe2"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cHh-De-sFl" secondAttribute="bottom" id="pMh-Gw-yY2"/>
                             <constraint firstItem="49n-67-O7i" firstAttribute="top" secondItem="9dR-Rf-IPJ" secondAttribute="top" id="sge-1o-Qfw"/>
+                            <constraint firstItem="cHh-De-sFl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="tcu-3H-TOK"/>
                             <constraint firstItem="L4k-he-B0c" firstAttribute="trailing" secondItem="heX-kR-UqW" secondAttribute="trailing" id="uwD-pR-WYT"/>
                             <constraint firstItem="lLw-Dt-aRw" firstAttribute="top" secondItem="heX-kR-UqW" secondAttribute="bottom" constant="8" id="wfb-Yy-9bV"/>
-                            <constraint firstItem="49n-67-O7i" firstAttribute="trailing" secondItem="ioa-XC-V3e" secondAttribute="trailing" id="x37-f4-m1g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="heX-kR-UqW" secondAttribute="trailing" id="xh4-5l-G2d"/>
                             <constraint firstItem="9dR-Rf-IPJ" firstAttribute="leading" secondItem="ioa-XC-V3e" secondAttribute="leading" id="zzI-WV-IFK"/>
                         </constraints>
